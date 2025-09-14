@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Store</title>
+
+  <!-- Icons + Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+<!-- HEADER -->
+<header class="header">
+  <div class="header-1">
+    <a href="#" class="logo"> <i class="fas fa-book"></i> Islamic Bookstore of Iraq</a>
+
+    <form action="" class="search-form">
+      <input type="search" placeholder="search here..." id="search-box">
+      <label for="search-box" class="fas fa-search"></label>
+    </form>
+
+    <div class="icons">
+      <div id="search-btn" class="fas fa-search"></div>
+      <div id="cart-btn" class="fas fa-shopping-cart"></div>
+      <a href="#" class="fas fa-heart"></a>
+      <div id="login-btn" class="fas fa-user"></div>
+    </div>
+  </div>
+
+  <div class="header-2">
+    <nav class="navbar">
+      <a href="#home">home</a>
+      <a href="#featured">featured</a>
+      <a href="#arrivals">arrivals</a>
+      <a href="#contacts">contacts</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HOME / LANDING -->
+<section id="home" class="home">
+  <h1 class="heading">Welcome to the <span>Bookstore</span></h1>
+  <div class="book-container">
+    <div class="book-card">
+      <img src="tawhed.jpg" alt="Book">
+      <h3>Aqeedah al Tawhid</h3>
+      <p>Short description...</p>
+      <button class="btn add-to-cart" data-name="Aqeedah al Tawhid" data-price="15,000">Buy Now</button>
+    </div>
+    <div class="book-card">
+      <img src="th13.jpg" alt="Book">
+      <h3>Hanabilah</h3>
+      <p>Short description...</p>
+      <button class="btn add-to-cart" data-name="Hanabilah" data-price="150,000">Buy Now</button>
+    </div>
+    <div class="book-card">
+      <img src="saadi.png" alt="Book">
+      <h3>Tafsir as-Saadi</h3>
+      <p>Short description...</p>
+      <button class="btn add-to-cart" data-name="Tafsir as-Saadi" data-price="20,000">Buy Now</button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section id="featured" class="featured">
+  <h1 class="heading">Featured <span>Book</span></h1>
+  <div class="featured-card">
+    <img src="th13.jpg" alt="Featured Book">
+    <div class="info">
+      <h3>Randomly Featured Book</h3>
+      <p>This is our highlighted book for today.</p>
+      <button class="btn add-to-cart" data-name="Featured Book" data-price="40">Learn More</button>
+    </div>
+  </div>
+</section>
+
+<!-- ARRIVALS -->
+<section id="arrivals" class="arrivals">
+  <h1 class="heading">New <span>Arrivals</span></h1>
+  <div class="book-container">
+    <div class="book-card">
+      <img src="talibin.jpg" alt="New Book">
+      <h3>Minhaj al Talibin</h3>
+      <button class="btn add-to-cart" data-name="Minhaj al Talibin" data-price="15,000">Buy Now</button>
+    </div>
+    <div class="book-card">
+      <img src="mughnimuhtaj.jpg" alt="New Book">
+      <h3>Mughni al Muhtaj</h3>
+      <button class="btn add-to-cart" data-name="Mughni al Muhtaj" data-price="80,000">Buy Now</button>
+    </div>
+    <div class="book-card">
+      <img src="mufid.jpg" alt="New Book">
+      <h3>Qawl al Mufid</h3>
+      <button class="btn add-to-cart" data-name="Qawl al Mufid" data-price="15,000">Buy Now</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacts" class="contacts">
+  <h1 class="heading">Get in <span>Touch</span></h1>
+  <p>Connect with us on social media</p>
+  <div class="socials">
+    <a href="#" class="btn"><i class="fab fa-github"></i> GitHub</a>
+    <a href="#" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+  </div>
+
+  <div class="rules">
+    <h2>3 Islamic Rules for Business</h2>
+    <ul>
+      <li>No cheating or deception</li>
+      <li>Fair pricing and honesty</li>
+      <li>Transactions without riba (interest)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="ayah">“Indeed, in the remembrance of Allah do hearts find rest.” (Qur’an 13:28)</p>
+  <p>&copy; 2025 Islamic Bookstore of Iraq | All Rights Reserved</p>
+</footer>
+
+<!-- CART POPUP -->
+<div id="cart-popup" class="cart-popup hidden">
+  <div class="cart-content">
+    
+
+    <span id="close-cart" class="close-btn">&times;</span>
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <p id="cart-total">Total: $0</p>
+    <div class="cart-actions">
+      <button id="buy-btn" class="btn">Buy</button>
+      <button id="clear-btn" class="btn clear">Clear</button>
+    </div>
+  </div>
+</div>
+<div id="toast-container"> <!-- Add to Cart Notification -->
+  <div id="toast" class="toast"></div> 
+</div>
+<script src="script.js"></script>
+</body>
+</html>
