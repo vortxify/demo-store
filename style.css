@@ -217,6 +217,22 @@ body{
   gap: 2rem;
   flex-wrap: wrap;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+footer {
+  margin-bottom: 0 !important;
+  padding-bottom: 1rem; /* adjust if you want smaller */
+}
+
+body {
+  overflow-x: hidden; /* prevents weird scrollbars */
+}
+
 .featured-card img {
   width: 200px;
   border-radius: .5rem;
