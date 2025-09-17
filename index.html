@@ -3,151 +3,1502 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo Store</title>
-
-  <!-- Icons + Fonts -->
+  <title>Islamic Bookstore of Iraq - Premium Collection</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+    :root {
+      --purple-dark: #0f0a1e;
+      --purple-main: #1a0f2e;
+      --purple-medium: #2d1b4e;
+      --purple-light: #4a2e7a;
+      --purple-accent: #6b4ca8;
+      --cyan: #00d4ff;
+      --cyan-light: #4df3ff;
+      --cyan-glow: rgba(0, 212, 255, 0.3);
+      --cyan-subtle: rgba(0, 212, 255, 0.1);
+      --gold: #ffd700;
+      --gold-light: #fff3a0;
+      --white: #ffffff;
+      --text-light: #c8b8e8;
+      --text-muted: #9580b8;
+      --gradient-primary: linear-gradient(135deg, #0f0a1e 0%, #2d1b4e 100%);
+      --gradient-accent: linear-gradient(135deg, #00d4ff 0%, #4df3ff 100%);
+      --gradient-card: linear-gradient(135deg, rgba(45, 27, 78, 0.9), rgba(74, 46, 122, 0.7));
+      --shadow-primary: 0 20px 40px rgba(0, 0, 0, 0.4);
+      --shadow-accent: 0 10px 30px var(--cyan-glow);
+      --border-radius: 16px;
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--purple-dark);
+      color: var(--white);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* Enhanced Animated Background */
+    .animated-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bg-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .bg-layer-1 {
+      background: 
+        radial-gradient(circle at 15% 85%, rgba(0, 212, 255, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(75, 46, 122, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 45% 45%, rgba(255, 215, 0, 0.08) 0%, transparent 40%);
+      animation: bgFloat1 20s ease-in-out infinite;
+    }
+
+    .bg-layer-2 {
+      background: 
+        radial-gradient(circle at 70% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 20% 70%, rgba(107, 76, 168, 0.2) 0%, transparent 50%);
+      animation: bgFloat2 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes bgFloat1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(-20px, -30px) rotate(1deg); }
+      66% { transform: translate(20px, 20px) rotate(-1deg); }
+    }
+
+    @keyframes bgFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(15px, -15px) scale(1.05); }
+    }
+
+    /* Floating Books Animation */
+    .floating-books-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .floating-book {
+      position: absolute;
+      font-size: 1.5rem;
+      color: var(--cyan-subtle);
+      opacity: 0;
+      animation: floatBook 15s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatBook {
+      0% {
+        transform: translateY(100vh) translateX(-10px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100px) translateX(10px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Loading Screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .loading-content {
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
+
+    .loading-content .loading-icon {
+      font-size: 5rem;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+      animation: rotate 2s linear infinite;
+    }
+
+    .loading-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .loading-bar {
+      width: 250px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .loading-progress {
+      height: 100%;
+      background: var(--gradient-accent);
+      animation: loading 2.5s ease-in-out;
+      border-radius: 3px;
+    }
+
+    @keyframes loading {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .loading-screen.fade-out {
+      opacity: 0;
+      transform: scale(0.95);
+      pointer-events: none;
+    }
+
+    /* Enhanced Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 10, 30, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      transition: var(--transition);
+      border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+    }
+
+    header.scrolled {
+      background: rgba(15, 10, 30, 0.98);
+      box-shadow: var(--shadow-primary);
+      border-bottom-color: rgba(0, 212, 255, 0.3);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo i {
+      color: var(--cyan);
+      -webkit-text-fill-color: var(--cyan);
+      filter: drop-shadow(0 0 10px var(--cyan-glow));
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      position: relative;
+      transition: var(--transition);
+      padding: 0.5rem 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+      transition: var(--transition);
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    nav a:hover {
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan-glow);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.4rem;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+      padding: 0.8rem;
+      border-radius: 50%;
+    }
+
+    .icon-btn:hover {
+      color: var(--cyan);
+      background: var(--cyan-subtle);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px var(--cyan-glow);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: 0.2rem;
+      right: 0.2rem;
+      background: var(--gradient-accent);
+      color: var(--purple-dark);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      animation: cartBounce 0.5s ease;
+      box-shadow: 0 2px 8px var(--cyan-glow);
+    }
+
+    @keyframes cartBounce {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    /* Enhanced Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: var(--gradient-primary);
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      text-align: center;
+      z-index: 2;
+      animation: fadeInUp 1.2s ease;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(45deg, var(--cyan), var(--cyan-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s ease-in-out infinite;
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 0 0 30px var(--cyan-glow);
+    }
+
+    @keyframes shimmer {
+      0%, 100% { 
+        background-position: 0% 50%; 
+        opacity: 1; 
+      }
+      50% { 
+        background-position: 100% 50%; 
+        opacity: 0.9; 
+      }
+    }
+
+    .hero-subtitle {
+      font-size: 1.4rem;
+      color: var(--text-light);
+      margin-bottom: 3rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 1.2rem 3rem;
+      background: var(--gradient-accent);
+      color: var(--purple-dark);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-accent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px var(--cyan-glow);
+    }
+
+    /* Enhanced Book Sections */
+    .book-section {
+      padding: 6rem 5%;
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 4rem;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--gradient-accent);
+      border-radius: 2px;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .book-card {
+      background: var(--gradient-card);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .book-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, var(--cyan-glow) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .book-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: var(--shadow-accent);
+      border-color: var(--cyan);
+    }
+
+    .book-card:hover::before {
+      opacity: 1;
+    }
+
+    .book-image {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .book-card:hover .book-image {
+      transform: scale(1.05);
+    }
+
+    .book-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: var(--cyan-light);
+      font-weight: 600;
+      font-family: 'Amiri', serif;
+      line-height: 1.3;
+    }
+
+    .book-author {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      font-weight: 400;
+    }
+
+    .book-price {
+      font-size: 1.6rem;
+      color: var(--gold);
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .add-to-cart {
+      width: 100%;
+      padding: 1rem;
+      background: var(--gradient-accent);
+      border: none;
+      border-radius: 12px;
+      color: var(--purple-dark);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .add-to-cart::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: var(--transition);
+      transform: translate(-50%, -50%);
+    }
+
+    .add-to-cart:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .add-to-cart:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-accent);
+    }
+
+    /* Enhanced Featured Section */
+    .featured-section {
+      background: linear-gradient(135deg, var(--purple-medium) 0%, var(--purple-accent) 100%);
+      padding: 6rem 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .featured-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--cyan-light);
+      font-weight: 700;
+    }
+
+    .featured-text p {
+      color: var(--text-light);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    .featured-image {
+      position: relative;
+    }
+
+    .featured-image img {
+      width: 100%;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-primary);
+      transition: var(--transition);
+    }
+
+    .featured-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--gold);
+      color: var(--purple-dark);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+      animation: pulse 3s infinite;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    /* Enhanced Quote Section */
+    .quote-section {
+      padding: 4rem 5%;
+      background: rgba(45, 27, 78, 0.6);
+      text-align: center;
+      border-top: 1px solid rgba(0, 212, 255, 0.2);
+      border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .quote-text {
+      font-family: 'Amiri', serif;
+      font-size: 2.2rem;
+      color: var(--cyan-light);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+
+    .quote-source {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    /* Enhanced Footer */
+    footer {
+      background: var(--purple-dark);
+      padding: 4rem 5%;
+      border-top: 1px solid rgba(0, 212, 255, 0.2);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      margin-bottom: 2rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-section h3 {
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .footer-section p, .footer-section a {
+      color: var(--text-light);
+      text-decoration: none;
+      line-height: 1.8;
+      transition: var(--transition);
+    }
+
+    .footer-section a:hover {
+      color: var(--cyan-light);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(0, 212, 255, 0.1);
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      color: var(--cyan);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--cyan);
+      color: var(--purple-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-accent);
+    }
+
+    /* Enhanced Cart Modal */
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+
+    .cart-modal.active {
+      display: flex;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .cart-content {
+      background: var(--gradient-primary);
+      border: 2px solid var(--cyan);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      max-width: 550px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.4s ease;
+      box-shadow: var(--shadow-primary);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+      padding-bottom: 1rem;
+    }
+
+    .cart-header h2 {
+      color: var(--cyan-light);
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .close-cart:hover {
+      color: var(--cyan);
+      background: var(--cyan-subtle);
+    }
+
+    .cart-items {
+      margin-bottom: 2rem;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      background: rgba(74, 46, 122, 0.4);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      transition: var(--transition);
+      border: 1px solid rgba(0, 212, 255, 0.1);
+    }
+
+    .cart-item:hover {
+      background: rgba(74, 46, 122, 0.6);
+      border-color: rgba(0, 212, 255, 0.3);
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      color: var(--cyan-light);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-family: 'Amiri', serif;
+    }
+
+    .cart-item-price {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .remove-item {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.3rem;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .remove-item:hover {
+      color: #ff4757;
+      background: rgba(255, 71, 87, 0.1);
+    }
+
+    .cart-total {
+      text-align: right;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      padding-top: 1rem;
+      border-top: 2px solid rgba(0, 212, 255, 0.2);
+      font-weight: 700;
+    }
+
+    .cart-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .cart-actions button {
+      flex: 1;
+      padding: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+
+    .checkout-btn {
+      background: var(--gradient-accent);
+      color: var(--purple-dark);
+    }
+
+    .checkout-btn:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-accent);
+    }
+
+    .clear-cart {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .clear-cart:hover {
+      background: rgba(255, 0, 0, 0.2);
+      border-color: rgba(255, 0, 0, 0.5);
+      color: #ff4757;
+    }
+
+    /* Enhanced Toast Notifications */
+    .toast-container {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      z-index: 3000;
+    }
+
+    .toast {
+      background: linear-gradient(135deg, var(--purple-light), var(--purple-main));
+      border: 1px solid var(--cyan);
+      border-radius: 12px;
+      padding: 1.2rem 2rem;
+      margin-bottom: 1rem;
+      color: var(--cyan-light);
+      box-shadow: var(--shadow-accent);
+      animation: slideInRight 0.4s ease, fadeOut 0.4s ease 2.6s forwards;
+      backdrop-filter: blur(10px);
+      font-weight: 500;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      nav {
+        display: none;
+      }
+      
+      .featured-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .book-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+      
+      .header-content {
+        padding: 1rem 5%;
+      }
+      
+      .book-section {
+        padding: 4rem 5%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .book-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cart-content {
+        width: 95%;
+        padding: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- HERO INTRO -->
-<div id="hero-intro">
-  <h1><i class="fas fa-book"></i> Islamic Bookstore of Iraq</h1>
-</div>
-
-  
-<!-- HEADER -->
-<header class="header">
-  <div class="header-1">
-    <a href="#" class="logo"> <i class="fas fa-book animate"></i> Islamic Bookstore of Iraq</a>
-
-    <form action="" class="search-form">
-      <input type="search" placeholder="search here..." id="search-box">
-      <label for="search-box" class="fas fa-search"></label>
-    </form>
-
-    <div class="icons">
-      <div id="search-btn" class="fas fa-search"></div>
-      <div id="cart-btn" class="fas fa-shopping-cart"></div>
-      <a href="#" class="fas fa-heart"></a>
-      <div id="login-btn" class="fas fa-user"></div>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-content">
+      <i class="fas fa-book loading-icon"></i>
+      <h1 class="loading-title">Islamic Bookstore</h1>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
     </div>
   </div>
 
-  <div class="header-2">
-    <nav class="navbar">
-      <a href="#home">home</a>
-      <a href="#featured">featured</a>
-      <a href="#arrivals">arrivals</a>
-      <a href="#contacts">contacts</a>
-    </nav>
-  </div>
-</header>
-
-<!-- HOME / LANDING -->
-<section id="home" class="home">
-  <h1 class="heading">Welcome to the <span>Bookstore</span></h1>
-  <div class="book-container">
-    <div class="book-card animate">
-      <img src="tawhed.jpg" alt="Book">
-      <h3>Aqeedah al Tawhid</h3>
-      <p>Short description...</p>
-      <button class="btn add-to-cart" data-name="Aqeedah al Tawhid" data-price="15,000">Buy Now</button>
-    </div>
-    <div class="book-card animate">
-      <img src="th13.jpg" alt="Book">
-      <h3>Hanabilah</h3>
-      <p>Short description...</p>
-      <button class="btn add-to-cart" data-name="Hanabilah" data-price="150,000">Buy Now</button>
-    </div>
-    <div class="book-card animate">
-      <img src="saadi.png" alt="Book">
-      <h3>Tafsir as-Saadi</h3>
-      <p>Short description...</p>
-      <button class="btn add-to-cart" data-name="Tafsir as-Saadi" data-price="20,000">Buy Now</button>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURED -->
-<section id="featured" class="featured animate">
-  <h1 class="heading">Featured <span>Book</span></h1>
-  <div class="featured-card">
-    <img src="th13.jpg" alt="Featured Book">
-    <div class="info">
-      <h3>Randomly Featured Book</h3>
-      <p>This is our highlighted book for today.</p>
-      <button class="btn add-to-cart" data-name="Featured Book" data-price="40">Learn More</button>
-    </div>
-  </div>
-</section>
-
-<!-- ARRIVALS -->
-<section id="arrivals" class="arrivals">
-  <h1 class="heading">New <span>Arrivals</span></h1>
-  <div class="book-container">
-    <div class="book-card animate">
-      <img src="talibin.jpg" alt="New Book">
-      <h3>Minhaj al Talibin</h3>
-      <button class="btn add-to-cart" data-name="Minhaj al Talibin" data-price="15,000">Buy Now</button>
-    </div>
-    <div class="book-card  animate">
-      <img src="mughnimuhtaj.jpg" alt="New Book">
-      <h3>Mughni al Muhtaj</h3>
-      <button class="btn add-to-cart" data-name="Mughni al Muhtaj" data-price="80,000">Buy Now</button>
-    </div>
-    <div class="book-card animate">
-      <img src="mufid.jpg" alt="New Book">
-      <h3>Qawl al Mufid</h3>
-      <button class="btn add-to-cart" data-name="Qawl al Mufid" data-price="15,000">Buy Now</button>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contacts" class="contacts">
-  <h1 class="heading">Get in <span>Touch</span></h1>
-  <p>Connect with us on social media</p>
-  <div class="socials">
-    <a href="#" class="btn"><i class="fab fa-github"></i> GitHub</a>
-    <a href="#" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+  <!-- Animated Background -->
+  <div class="animated-background">
+    <div class="bg-layer bg-layer-1"></div>
+    <div class="bg-layer bg-layer-2"></div>
+    <div class="floating-books-container" id="floating-books"></div>
   </div>
 
-  <div class="rules">
-    <h2>3 Islamic Rules for Business</h2>
-    <ul>
-      <li>No cheating or deception</li>
-      <li>Fair pricing and honesty</li>
-      <li>Transactions without riba (interest)</li>
-    </ul>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-content">
+      <div class="logo">
+        <i class="fas fa-book"></i>
+        Islamic Bookstore
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#collection">Collection</a>
+        <a href="#featured">Featured</a>
+        <a href="#new">New Arrivals</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-icons">
+        <button class="icon-btn" aria-label="Search">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="icon-btn" aria-label="Wishlist">
+          <i class="fas fa-heart"></i>
+        </button>
+        <button class="icon-btn" id="cart-btn" aria-label="Shopping Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cart-count" style="display: none;">0</span>
+        </button>
+        <button class="icon-btn" aria-label="Account">
+          <i class="fas fa-user"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1 class="hero-title">Discover Sacred Knowledge</h1>
+      <p class="hero-subtitle">Your Gateway to Islamic Literature & Scholarly Works</p>
+      <a href="#collection" class="cta-button">Explore Collection</a>
+    </div>
+  </section>
+
+  <!-- Main Collection -->
+  <section class="book-section" id="collection">
+    <h2 class="section-title">Our Collection</h2>
+    <div class="book-grid">
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Aqeedah+al-Tawhid" class="book-image" alt="Aqeedah al-Tawhid">
+        <h3 class="book-title">عقيدة التوحيد</h3>
+        <p class="book-author">Classical Text</p>
+        <p class="book-price">15,000 IQD</p>
+        <button class="add-to-cart" data-name="عقيدة التوحيد" data-price="15000">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Hanabilah+Fiqh" class="book-image" alt="Hanabilah Fiqh">
+        <h3 class="book-title">فقه الحنابلة</h3>
+        <p class="book-author">Imam Ahmad Collection</p>
+        <p class="book-price">150,000 IQD</p>
+        <button class="add-to-cart" data-name="فقه الحنابلة" data-price="150000">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Tafsir+as-Sadi" class="book-image" alt="Tafsir as-Sa'di">
+        <h3 class="book-title">تفسير السعدي</h3>
+        <p class="book-author">Sheikh as-Sa'di</p>
+        <p class="book-price">20,000 IQD</p>
+        <button class="add-to-cart" data-name="تفسير السعدي" data-price="20000">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Sahih+al-Bukhari" class="book-image" alt="Sahih al-Bukhari">
+        <h3 class="book-title">صحيح البخاري</h3>
+        <p class="book-author">Imam Bukhari</p>
+        <p class="book-price">45,000 IQD</p>
+        <button class="add-to-cart" data-name="صحيح البخاري" data-price="45000">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="quote-section">
+    <p class="quote-text">"وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا"</p>
+    <p class="quote-source">- سورة الطلاق 65:2</p>
+  </section>
+
+  <!-- Featured Section -->
+  <section class="featured-section" id="featured">
+    <div class="featured-content">
+      <div class="featured-text">
+        <h2>Featured Collection</h2>
+        <p>Explore our specially curated selection of classical Islamic texts and contemporary scholarly works. Each book is carefully chosen to provide authentic knowledge and spiritual guidance according to the Salafi methodology.</p>
+        <a href="#" class="cta-button">View Featured</a>
+      </div>
+      <div class="featured-image">
+        <div class="badge">Special Offer</div>
+        <img src="https://via.placeholder.com/500x600/4a2e7a/00d4ff?text=Featured+Collection" alt="Featured Book Collection">
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section class="book-section" id="new">
+    <h2 class="section-title">New Arrivals</h2>
+    <div class="book-grid">
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Minhaj+al-Talibin" class="book-image" alt="Minhaj al-Talibin">
+        <h3 class="book-title">منهاج الطالبين</h3>
+        <p class="book-author">Imam Nawawi</p>
+        <p class="book-price">15,000 IQD</p>
+        <button class="add-to-cart" data-name="منهاج الطالبين" data-price="15000">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Seerah+an-Nabawiyyah" class="book-image" alt="Seerah an-Nabawiyyah">
+        <h3 class="book-title">السيرة النبوية</h3>
+        <p class="book-author">Ibn Hisham</p>
+        <p class="book-price">25,000 IQD</p>
+        <button class="add-to-cart" data-name="السيرة النبوية" data-price="25000">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Usul+al-Fiqh" class="book-image" alt="Usul al-Fiqh">
+        <h3 class="book-title">أصول الفقه</h3>
+        <p class="book-author">Contemporary Scholars</p>
+        <p class="book-price">18,000 IQD</p>
+        <button class="add-to-cart" data-name="أصول الفقه" data-price="18000">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Ihya+Ulum+al-Din" class="book-image" alt="Ihya Ulum al-Din">
+        <h3 class="book-title">إحياء علوم الدين</h3>
+        <p class="book-author">Imam al-Ghazali</p>
+        <p class="book-price">35,000 IQD</p>
+        <button class="add-to-cart" data-name="إحياء علوم الدين" data-price="35000">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <p>Your trusted source for authentic Islamic literature in Iraq. We provide carefully curated books from classical scholars and contemporary Islamic thinkers following the Salafi methodology.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <p><a href="#home">Home</a></p>
+        <p><a href="#collection">Collection</a></p>
+        <p><a href="#featured">Featured Books</a></p>
+        <p><a href="#new">New Arrivals</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Erbil, Iraq</p>
+        <p><i class="fas fa-phone"></i> +964 XXX XXX XXXX</p>
+        <p><i class="fas fa-envelope"></i> info@islamicbookstore.iq</p>
+        <p><i class="fas fa-clock"></i> Sun-Thu: 9AM-8PM</p>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0, 212, 255, 0.2); color: var(--text-light);">
+      <p>&copy; 2025 Islamic Bookstore of Iraq. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Cart Modal -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h2>Shopping Cart</h2>
+        <button class="close-cart" id="close-cart" aria-label="Close Cart">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="cart-items" id="cart-items">
+        <p style="text-align: center; color: var(--text-light); padding: 2rem;">Your cart is empty</p>
+      </div>
+      <div class="cart-total" id="cart-total" style="display: none;">
+        Total: <span id="total-amount">0</span> IQD
+      </div>
+      <div class="cart-actions" id="cart-actions" style="display: none;">
+        <button class="checkout-btn">Proceed to Checkout</button>
+        <button class="clear-cart" id="clear-cart">Clear Cart</button>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p class="ayah">“Indeed, in the remembrance of Allah do hearts find rest.” (Qur’an 13:28)</p>
-  <p>&copy; 2025 Islamic Bookstore of Iraq | All Rights Reserved</p>
-</footer>
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
 
-<!-- CART POPUP -->
-<div id="cart-popup" class="cart-popup hidden">
-  <div class="cart-content">
+  <script>
+    // Performance optimized BookStore class
+    class BookStore {
+      constructor() {
+        this.cart = [];
+        this.cartCount = 0;
+        this.floatingBooksInterval = null;
+        this.maxFloatingBooks = 6;
+        this.currentFloatingBooks = 0;
+        
+        // Cache DOM elements
+        this.elements = {
+          loadingScreen: document.getElementById('loading-screen'),
+          header: document.getElementById('header'),
+          cartBtn: document.getElementById('cart-btn'),
+          cartModal: document.getElementById('cart-modal'),
+          closeCart: document.getElementById('close-cart'),
+          cartCount: document.getElementById('cart-count'),
+          cartItems: document.getElementById('cart-items'),
+          cartTotal: document.getElementById('cart-total'),
+          cartActions: document.getElementById('cart-actions'),
+          clearCartBtn: document.getElementById('clear-cart'),
+          totalAmount: document.getElementById('total-amount'),
+          toastContainer: document.getElementById('toast-container'),
+          floatingBooksContainer: document.getElementById('floating-books')
+        };
+        
+        this.init();
+      }
+      
+      init() {
+        this.setupEventListeners();
+        this.startLoadingSequence();
+        this.startFloatingBooks();
+        this.updateCartUI();
+      }
+      
+      setupEventListeners() {
+        // Loading screen
+        window.addEventListener('load', () => this.finishLoading());
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+        
+        // Cart functionality
+        document.addEventListener('click', (e) => this.handleClick(e));
+        
+        // Modal events
+        this.elements.cartBtn.addEventListener('click', () => this.openCart());
+        this.elements.closeCart.addEventListener('click', () => this.closeCart());
+        this.elements.cartModal.addEventListener('click', (e) => {
+          if (e.target === this.elements.cartModal) this.closeCart();
+        });
+        this.elements.clearCartBtn.addEventListener('click', () => this.clearCart());
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') this.closeCart();
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', (e) => this.smoothScroll(e));
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => this.cleanup());
+      }
+      
+      startLoadingSequence() {
+        // Loading will finish automatically after page load + delay
+      }
+      
+      finishLoading() {
+        setTimeout(() => {
+          this.elements.loadingScreen.classList.add('fade-out');
+          setTimeout(() => {
+            this.elements.loadingScreen.style.display = 'none';
+          }, 1000);
+        }, 2000);
+      }
+      
+      handleScroll() {
+        const scrollY = window.scrollY;
+        if (scrollY > 100) {
+          this.elements.header.classList.add('scrolled');
+        } else {
+          this.elements.header.classList.remove('scrolled');
+        }
+      }
+      
+      handleClick(e) {
+        if (e.target.classList.contains('add-to-cart')) {
+          e.preventDefault();
+          const name = e.target.getAttribute('data-name');
+          const price = parseInt(e.target.getAttribute('data-price'));
+          this.addToCart(name, price);
+        }
+      }
+      
+      addToCart(name, price) {
+        if (!name || !price) return;
+        
+        const existingItem = this.cart.find(item => item.name === name);
+        
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          this.cart.push({ name, price, quantity: 1 });
+        }
+        
+        this.cartCount++;
+        this.updateCartUI();
+        this.showToast(`${name} added to cart!`);
+      }
+      
+      removeFromCart(index) {
+        if (index < 0 || index >= this.cart.length) return;
+        
+        const item = this.cart[index];
+        this.cartCount -= item.quantity;
+        this.cart.splice(index, 1);
+        this.updateCartUI();
+        this.showToast(`${item.name} removed from cart`);
+      }
+      
+      clearCart() {
+        this.cart = [];
+        this.cartCount = 0;
+        this.updateCartUI();
+        this.showToast('Cart cleared');
+      }
+      
+      updateCartUI() {
+        // Update cart count
+        this.elements.cartCount.textContent = this.cartCount;
+        this.elements.cartCount.style.display = this.cartCount > 0 ? 'flex' : 'none';
+        
+        // Update cart items
+        if (this.cart.length === 0) {
+          this.elements.cartItems.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">Your cart is empty</p>';
+          this.elements.cartTotal.style.display = 'none';
+          this.elements.cartActions.style.display = 'none';
+        } else {
+          this.renderCartItems();
+        }
+      }
+      
+      renderCartItems() {
+        this.elements.cartItems.innerHTML = '';
+        let total = 0;
+        
+        this.cart.forEach((item, index) => {
+          const itemElement = document.createElement('div');
+          itemElement.classList.add('cart-item');
+          itemElement.innerHTML = `
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-price">${item.price.toLocaleString()} IQD × ${item.quantity}</div>
+            </div>
+            <button class="remove-item" data-index="${index}" aria-label="Remove ${item.name}">
+              <i class="fas fa-trash"></i>
+            </button>
+          `;
+          
+          // Add event listener for remove button
+          const removeBtn = itemElement.querySelector('.remove-item');
+          removeBtn.addEventListener('click', () => this.removeFromCart(index));
+          
+          this.elements.cartItems.appendChild(itemElement);
+          total += item.price * item.quantity;
+        });
+        
+        this.elements.totalAmount.textContent = total.toLocaleString();
+        this.elements.cartTotal.style.display = 'block';
+        this.elements.cartActions.style.display = 'flex';
+      }
+      
+      openCart() {
+        this.elements.cartModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      closeCart() {
+        this.elements.cartModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      
+      showToast(message) {
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.textContent = message;
+        
+        this.elements.toastContainer.appendChild(toast);
+        
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.remove();
+          }
+        }, 3000);
+      }
+      
+      smoothScroll(e) {
+        e.preventDefault();
+        const href = e.target.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+      
+      startFloatingBooks() {
+        this.createFloatingBook();
+        this.floatingBooksInterval = setInterval(() => {
+          if (this.currentFloatingBooks < this.maxFloatingBooks) {
+            this.createFloatingBook();
+          }
+        }, 3000);
+      }
+      
+      createFloatingBook() {
+        const bookIcons = ['fas fa-book', 'fas fa-book-open', 'fas fa-quran', 'far fa-file-alt'];
+        const book = document.createElement('i');
+        book.className = `${bookIcons[Math.floor(Math.random() * bookIcons.length)]} floating-book`;
+        book.style.left = Math.random() * 100 + '%';
+        book.style.animationDelay = Math.random() * 2 + 's';
+        book.style.fontSize = (1 + Math.random() * 0.8) + 'rem';
+        
+        this.elements.floatingBooksContainer.appendChild(book);
+        this.currentFloatingBooks++;
+        
+        // Remove book after animation completes
+        setTimeout(() => {
+          if (book.parentNode) {
+            book.remove();
+            this.currentFloatingBooks--;
+          }
+        }, 15000);
+      }
+      
+      cleanup() {
+        if (this.floatingBooksInterval) {
+          clearInterval(this.floatingBooksInterval);
+        }
+        
+        // Remove all floating books
+        const floatingBooks = this.elements.floatingBooksContainer.querySelectorAll('.floating-book');
+        floatingBooks.forEach(book => book.remove());
+        
+        // Reset overflow
+        document.body.style.overflow = '';
+      }
+    }
     
-
-    <span id="close-cart" class="close-btn">&times;</span>
-    <h2>Your Cart</h2>
-    <ul id="cart-items"></ul>
-    <p id="cart-total">Total: $0</p>
-    <div class="cart-actions">
-      <button id="buy-btn" class="btn">Buy</button>
-      <button id="clear-btn" class="btn clear">Clear</button>
-    </div>
-  </div>
-</div>
-<div id="toast-container"> <!-- Add to Cart Notification -->
-  <div id="toast" class="toast"></div> 
-</div>
-<script src="script.js"></script>
+    // Initialize the BookStore when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      window.bookStore = new BookStore();
+    });
+    
+    // Fallback initialization
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!window.bookStore) {
+          window.bookStore = new BookStore();
+        }
+      });
+    } else {
+      window.bookStore = new BookStore();
+    }
+  </script>
 </body>
 </html>
