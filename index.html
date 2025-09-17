@@ -262,6 +262,9 @@
       display: flex;
       gap: 2.5rem;
     }
+    html {
+      scroll-behavior: smooth;
+    }
 
     nav a {
       color: var(--text-light);
@@ -780,6 +783,7 @@
       position: relative;
       animation: slideUp 0.4s ease;
       box-shadow: var(--shadow-primary);
+      transition: all linear 0.4s;
     }
 
     @keyframes slideUp {
@@ -957,6 +961,7 @@
       }
     }
 
+
     @keyframes fadeOut {
       to {
         opacity: 0;
@@ -1043,7 +1048,7 @@
         Islamic Bookstore
       </div>
       <nav>
-        <a href="#home">Home</a>
+        <a href="#home" onclick="scrollToSection">Home</a>
         <a href="#collection">Collection</a>
         <a href="#featured">Featured</a>
         <a href="#new">New Arrivals</a>
@@ -1081,28 +1086,28 @@
     <h2 class="section-title">Our Collection</h2>
     <div class="book-grid">
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Aqeedah+al-Tawhid" class="book-image" alt="Aqeedah al-Tawhid">
+        <img src="" class="book-image" alt="Aqeedah al-Tawhid">
         <h3 class="book-title">عقيدة التوحيد</h3>
         <p class="book-author">Classical Text</p>
         <p class="book-price">15,000 IQD</p>
         <button class="add-to-cart" data-name="عقيدة التوحيد" data-price="15000">Add to Cart</button>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Hanabilah+Fiqh" class="book-image" alt="Hanabilah Fiqh">
+        <img src="" class="book-image" alt="Hanabilah Fiqh">
         <h3 class="book-title">فقه الحنابلة</h3>
         <p class="book-author">Imam Ahmad Collection</p>
         <p class="book-price">150,000 IQD</p>
         <button class="add-to-cart" data-name="فقه الحنابلة" data-price="150000">Add to Cart</button>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Tafsir+as-Sadi" class="book-image" alt="Tafsir as-Sa'di">
+        <img src="" class="book-image" alt="Tafsir as-Sa'di">
         <h3 class="book-title">تفسير السعدي</h3>
         <p class="book-author">Sheikh as-Sa'di</p>
         <p class="book-price">20,000 IQD</p>
         <button class="add-to-cart" data-name="تفسير السعدي" data-price="20000">Add to Cart</button>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Sahih+al-Bukhari" class="book-image" alt="Sahih al-Bukhari">
+        <img src="" class="book-image" alt="Sahih al-Bukhari">
         <h3 class="book-title">صحيح البخاري</h3>
         <p class="book-author">Imam Bukhari</p>
         <p class="book-price">45,000 IQD</p>
@@ -1127,7 +1132,7 @@
       </div>
       <div class="featured-image">
         <div class="badge">Special Offer</div>
-        <img src="https://via.placeholder.com/500x600/4a2e7a/00d4ff?text=Featured+Collection" alt="Featured Book Collection">
+        <img src=""Featured Book Collection">
       </div>
     </div>
   </section>
@@ -1137,28 +1142,28 @@
     <h2 class="section-title">New Arrivals</h2>
     <div class="book-grid">
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Minhaj+al-Talibin" class="book-image" alt="Minhaj al-Talibin">
+        <img src="" class="book-image" alt="Minhaj al-Talibin">
         <h3 class="book-title">منهاج الطالبين</h3>
         <p class="book-author">Imam Nawawi</p>
         <p class="book-price">15,000 IQD</p>
         <button class="add-to-cart" data-name="منهاج الطالبين" data-price="15000">Add to Cart</button>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Seerah+an-Nabawiyyah" class="book-image" alt="Seerah an-Nabawiyyah">
+        <img src="" class="book-image" alt="Seerah an-Nabawiyyah">
         <h3 class="book-title">السيرة النبوية</h3>
         <p class="book-author">Ibn Hisham</p>
         <p class="book-price">25,000 IQD</p>
         <button class="add-to-cart" data-name="السيرة النبوية" data-price="25000">Add to Cart</button>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Usul+al-Fiqh" class="book-image" alt="Usul al-Fiqh">
+        <img src="" class="book-image" alt="Usul al-Fiqh">
         <h3 class="book-title">أصول الفقه</h3>
         <p class="book-author">Contemporary Scholars</p>
         <p class="book-price">18,000 IQD</p>
         <button class="add-to-cart" data-name="أصول الفقه" data-price="18000">Add to Cart</button>
       </div>
       <div class="book-card">
-        <img src="https://via.placeholder.com/280x320/4a2e7a/00d4ff?text=Ihya+Ulum+al-Din" class="book-image" alt="Ihya Ulum al-Din">
+        <img src="" class="book-image" alt="Ihya Ulum al-Din">
         <h3 class="book-title">إحياء علوم الدين</h3>
         <p class="book-author">Imam al-Ghazali</p>
         <p class="book-price">35,000 IQD</p>
@@ -1189,9 +1194,9 @@
       </div>
       <div class="footer-section">
         <h3>Contact Info</h3>
-        <p><i class="fas fa-map-marker-alt"></i> Erbil, Iraq</p>
+        <p><i class="fas fa-map-marker-alt"></i> Erbil, Kurdistan</p>
         <p><i class="fas fa-phone"></i> +964 XXX XXX XXXX</p>
-        <p><i class="fas fa-envelope"></i> info@islamicbookstore.iq</p>
+        <p><i class="fas fa-envelope"></i> jubrai.halgord@gmail.com</p>
         <p><i class="fas fa-clock"></i> Sun-Thu: 9AM-8PM</p>
       </div>
     </div>
@@ -1226,6 +1231,14 @@
   <div class="toast-container" id="toast-container"></div>
 
   <script>
+
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
     // Performance optimized BookStore class
     class BookStore {
       constructor() {
